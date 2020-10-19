@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JDOC.HN</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="newcss.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    </head>
+    <body>
+        <header class="header">JODC DICTIONARY</header>
+        <section>
+            <nav>
+                <ul id="myUL">
+                    <li><span class="caret">Category</span>
+                        <ul class="nested">
+                            <li>Wall</li>
+                            <li><span class="caret">Tường trong</span>
+                            <li>Beam</li>
+                            <li><span class="caret">Small beam</span>
+                                <ul class="nested">
+                                    <li>White beam</li>
+                                    <li><span class="caret">Green beam</span>
+                                        <ul class="nested">
+                                            <li>Sencha</li>
+                                            <li>Gyokuro</li>
+                                            <li>Matcha</li>
+                                            <li>Pi Lo Chun</li>
+                                            <li>Pi Lo Chun</li>
+                                            <li>Pi Lo Chun</li> 
+                                            <li>Pi Lo Chun</li> 
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>  
+                        </ul>
+                    </li>
+                </ul>
+                <script>
+                    var toggler = document.getElementsByClassName("caret");
+                    var i;
+
+                    for (i = 0; i < toggler.length; i++) {
+                        toggler[i].addEventListener("click", function () {
+                            this.parentElement.querySelector(".nested").classList.toggle("active");
+                            this.classList.toggle("caret-down");
+                        });
+                    }
+                </script>
+            </nav>
+            <article>
+                <form class="example" action="#">
+                    <input type="text" placeholder="Search..." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>                   
+                </form>
+            </article>
+        </section>
+        <div class="icon">
+            <i class="fas fa-plus"></i>
+            <i class="fas fa-edit"></i>
+            <i class="fas fa-trash-alt"></i>
+        </div>
+    </body>
+</html>
