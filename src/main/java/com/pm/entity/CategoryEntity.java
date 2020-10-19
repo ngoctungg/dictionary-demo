@@ -45,7 +45,7 @@ public class CategoryEntity {
     public int getCreatorId() {
         return creatorId;
     }
-
+//ok
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
     }
