@@ -1,20 +1,50 @@
 package com.pm.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "post")
-public class PostEntity {
-    private int id;
-    private String title;
-    private String summary;
-    private String content;
-    private int idCategory;
-
+@Table(name = "`post`")
+public class PostEntity implements Serializable {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "title", nullable = false, length = 2147483647)
+    private String title;
+
+    @Column(name = "summary", nullable = false, length = 2147483647)
+    private String summary;
+
+    @Column(name = "content", nullable = false, length = 2147483647)
+    private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private List<FileEntity> files;
+
+    public List<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileEntity> files) {
+        this.files = files;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
+
     public int getId() {
         return id;
     }
@@ -23,8 +53,7 @@ public class PostEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, length = 2147483647)
+
     public String getTitle() {
         return title;
     }
@@ -33,8 +62,7 @@ public class PostEntity {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "summary", nullable = false, length = 2147483647)
+
     public String getSummary() {
         return summary;
     }
@@ -43,8 +71,7 @@ public class PostEntity {
         this.summary = summary;
     }
 
-    @Basic
-    @Column(name = "content", nullable = false, length = 2147483647)
+
     public String getContent() {
         return content;
     }
@@ -53,15 +80,6 @@ public class PostEntity {
         this.content = content;
     }
 
-    @Basic
-    @Column(name = "id_category", nullable = false)
-    public int getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,7 +87,6 @@ public class PostEntity {
         if (o == null || getClass() != o.getClass()) return false;
         PostEntity that = (PostEntity) o;
         return id == that.id &&
-                idCategory == that.idCategory &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(summary, that.summary) &&
                 Objects.equals(content, that.content);
@@ -77,6 +94,6 @@ public class PostEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, summary, content, idCategory);
+        return Objects.hash(id, title, summary, content);
     }
 }

@@ -1,47 +1,31 @@
 package com.pm.controller;
 
-import com.pm.entity.RoleEntity;
-import com.pm.entity.UserEntity;
-import com.pm.repository.RoleRepository;
-import com.pm.repository.UserRepository;
+import com.pm.entity.CategoryEntity;
+import com.pm.entity.PostEntity;
+import com.pm.repository.CategoryRepository;
+import com.pm.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+
 @RestController
 public class HelloController {
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+	CategoryRepository categoryRepository;
 
-	@Autowired
-	private UserRepository userRepository;
-
-	@GetMapping("/")
-	@Transactional
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-
-		UserEntity userEntity = new UserEntity();
-		userEntity.setAccount("tungmn");
-		userEntity.setPassword("hello");
-
-		RoleEntity roleEntity = new RoleEntity();
-		roleEntity.setName("user");
-
-		userEntity.setRoles(Arrays.asList(roleEntity));
-		roleEntity.setUsers(Arrays.asList(userEntity));
-
-		userRepository.saveAndFlush(userEntity);
-		roleRepository.saveAndFlush(roleEntity);
-		return String.format("Hello %s!", name);
-		//
-	}
+    @GetMapping("/post")
+    public ResponseEntity hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		List<String> categoies = new ArrayList<>();
+		categoryRepository.findAll().forEach(categoryEntity -> categoies.add(categoryEntity.getName()));
+        return ResponseEntity.ok().body(categoies);
+    }
 }

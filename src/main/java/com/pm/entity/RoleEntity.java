@@ -1,29 +1,39 @@
 package com.pm.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role")
-public class RoleEntity {
+@Table(name = "`role`")
+public class RoleEntity implements Serializable {
 
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Basic
-    @Column(name = "name", nullable = false, length = 10)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "name")
     private String name;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @ManyToMany(mappedBy = "roles")
     private List<UserEntity> users;
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
 
     public void setUsers(List<UserEntity> users) {
         this.users = users;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

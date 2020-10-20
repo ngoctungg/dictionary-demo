@@ -1,19 +1,32 @@
 package com.pm.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "file")
-public class FileEntity {
-    private int id;
-    private String name;
-    private String path;
-    private int idPost;
-
+@Table(name = "`file`")
+public class FileEntity implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name", nullable = false, length = 2147483647)
+    private String name;
+
+    public void setPost(PostEntity post) {
+        this.post = post;
+    }
+
+    @Column(name = "path", nullable = false, length = 2147483647)
+    private String path;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private PostEntity post;
+
+
     public int getId() {
         return id;
     }
@@ -22,8 +35,7 @@ public class FileEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 2147483647)
+
     public String getName() {
         return name;
     }
@@ -32,8 +44,7 @@ public class FileEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "path", nullable = false, length = 2147483647)
+
     public String getPath() {
         return path;
     }
@@ -42,15 +53,6 @@ public class FileEntity {
         this.path = path;
     }
 
-    @Basic
-    @Column(name = "id_post", nullable = false)
-    public int getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(int idPost) {
-        this.idPost = idPost;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,13 +60,12 @@ public class FileEntity {
         if (o == null || getClass() != o.getClass()) return false;
         FileEntity that = (FileEntity) o;
         return id == that.id &&
-                idPost == that.idPost &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(path, that.path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, path, idPost);
+        return Objects.hash(id, name, path);
     }
 }
