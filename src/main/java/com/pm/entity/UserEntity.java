@@ -1,32 +1,35 @@
 package com.pm.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
-public class UserEntity {
+@Table(name = "`user`")
+public class UserEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Basic
-    @Column(name = "account", nullable = false, length = 50)
+    private Integer id;
+    @Column(name = "account")
     private String account;
-    @Basic
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password")
     private String password;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAccount() {
