@@ -74,5 +74,7 @@
   transform: rotate(90deg);
 }
 #sidebar-wrapper{
-
+}
+.click-through{
+  pointer-events: none;
 }
