@@ -6,4 +6,5 @@ public class EntityAuditorAware implements AuditorAware<Long> {
     public Optional<Long> getCurrentAuditor() {
         return Optional.of(1l);
     }
+
 }
