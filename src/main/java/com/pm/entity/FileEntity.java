@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`file`")
-public class FileEntity implements Serializable {
+public class FileEntity{
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

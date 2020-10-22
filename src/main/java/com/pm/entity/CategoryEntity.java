@@ -1,5 +1,8 @@
 package com.pm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pm.audit.Auditable;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "`category`")
 @EntityListeners(AuditingEntityListener.class)
-public class CategoryEntity extends Auditable<Long> implements Serializable {
+public class CategoryEntity extends Auditable<Long> {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +33,6 @@ public class CategoryEntity extends Auditable<Long> implements Serializable {
     public List<PostEntity> getPosts() {
         return posts;
     }
-
 
     public void setPosts(List<PostEntity> posts) {
         this.posts = posts;
@@ -60,6 +62,7 @@ public class CategoryEntity extends Auditable<Long> implements Serializable {
         return id == that.id &&
                 Objects.equals(name, that.name);
     }
+
 
     @Override
     public int hashCode() {

@@ -38,4 +38,11 @@ public class PostRestService {
 
         return new ResponseMessage("200","Create new post successfully");
     }
+
+    public PostEntity getPostById(Integer id){
+        PostEntity post = postRepository.getOne(id);
+        return post;
+    }
+
 }
+

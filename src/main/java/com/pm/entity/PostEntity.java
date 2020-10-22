@@ -1,5 +1,8 @@
 package com.pm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +10,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`post`")
-public class PostEntity implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","files"})
+public class PostEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +26,12 @@ public class PostEntity implements Serializable {
     @Column(name = "content", nullable = false, length = 2147483647)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"posts"})
     private CategoryEntity category;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post")
     private List<FileEntity> files;
 
     public List<FileEntity> getFiles() {
@@ -79,7 +84,6 @@ public class PostEntity implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
-
 
     @Override
     public boolean equals(Object o) {
