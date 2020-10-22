@@ -36,20 +36,8 @@ let selectionCategory = document.getElementById("selection_category");
 let inputTitle = document.getElementById("title");
 let inputTag = document.getElementById("tag");
 let inputSummary = document.getElementById("summary");
-var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-var toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl);
-});
-toastList.forEach(el => {
-    el._element.addEventListener("hidden.bs.toast", () => {
-        el._element.classList.remove("bg-danger");
-        el._element.classList.remove("bg-success");
-        el._element.classList.add("click-through");
-    })
-})
 
 cbNewCategory.addEventListener("change", handleEventCbNewCategory);
-
 function handleEventCbNewCategory(e) {
     if (cbNewCategory.checked === true) {
         inputCategory.parentElement.classList.remove("d-none");
@@ -104,33 +92,4 @@ async function handleSaveEvent(e) {
     showToast(msg.msg, msg.status === undefined);
 }
 
-function showToast(msg = "", isError = false) {
-    toastList.forEach(el => {
-        el._element.getElementsByClassName("toast-body")[0].innerHTML = msg;
-        el._element.classList.remove("click-through");
-        el._element.classList.add(isError ? "bg-danger" : "bg-success");
-        el.show();
-    });
-}
 
-async function sendRequest(url = "", method = "Get", data = {}) {
-    try {
-        const response = await fetch(url, {
-            method: method,
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            redirect: 'follow',
-            body: JSON.stringify(data)
-        });
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response.json();
-    } catch (e) {
-        return {"msg": "Your action was unsuccessful"};
-    }
-}

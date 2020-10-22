@@ -46,7 +46,6 @@
 /* Hide the nested list */
 .nested {
   display: none;
-  padding-left: 28px;
 }
 
 /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
@@ -73,8 +72,9 @@
 .caret-down::before {
   transform: rotate(90deg);
 }
-}
+
 .click-through{
   pointer-events: none;
+}
 #sidebar-wrapper{
 }
