@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Home</title>
+	<title>Edit</title>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<!--css-->
@@ -61,32 +61,7 @@
 
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-						   data-toggle="dropdown"
-						   href="#" id="navbarDropdown" role="button">
-							Dropdown
-						</a>
-						<div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</nav>
-
+		<div th:replace="~{/fragments/nav.html :: nav}"></div>
 		<div class="container-fluid mt-5 mb-5">
 			<div class="ql-container ql-snow" id="quill-content" style="height: 440px">
 			</div>
@@ -102,11 +77,17 @@
 	</div>
 	<button aria-label="Close" class="btn-close ml-auto mr-2" data-dismiss="toast" type="button"></button>
 </div>
+<div class="d-flex justify-content-center d-none" id="loading" style="position: absolute;width: 100vw;height: 100vh;top: 0;right: 0;background-color: ghostwhite;
+    opacity: 0.6;">
+	<div class="spinner-border align-self-center" style="width: 5rem; height: 5rem;" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
 
 <script crossorigin="anonymous"
         integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD"
         src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
-<script th:src="@{/js/edit.js}"></script>
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/edit.js}"></script>
 </body>
 </html>
