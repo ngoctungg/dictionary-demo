@@ -6,31 +6,44 @@ for (i = 0; i < toggler.length; i++) {
     });
 }
 //---set up quill
-const options = {
-    readOnly: true,
-};
-const quill = new Quill('#quill-content', options);
-
+const quill = new Quill('#quill-content', { readOnly: true,});
 let btnPosts = document.querySelectorAll("[name=btn_post]");
-
-Array.from(btnPosts).forEach(el=>{
-    el.addEventListener("click",handleClickBtnPost);
+let lkEdit = document.getElementById("lk_edit");
+document.addEventListener("DOMContentLoaded", function(event) {
+    lkEdit.addEventListener("click",handleClicklkEdit);
+    Array.from(btnPosts).forEach(el=>{
+        el.addEventListener("click",handleClickBtnPost);
+    });
+    Array.from(document.getElementsByClassName("ql-clipboard")).forEach(el=>el.classList.toggle("d-none"));
+    loadPostById();
+});
+function loadPostById(){
     let id = getPostIdFromURl();
+    if(id == null) return ;
+    let el = document.getElementById("p_"+id);
+    if(el === null){
+        quill.setContents(JSON.parse("{\"ops\":[{\"insert\":\"Post is not found\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"}]}"));
+        return ;
+    }
     if (el.id.split("_")[1] === id){
         el.click();
         el.parentElement.previousElementSibling.click();
     }
-})
+}
+function handleClicklkEdit(e){
+    if (getPostIdFromURl() === null){
+        e.preventDefault();
+        return ;
+    }
+}
 async function handleClickBtnPost(e){
     let id = e.target.id.split("_")[1];
     let url = window.location.origin;
-    loading.classList.toggle("d-none");
     let post = await sendRequest(`${url}/api/posts/${id}`, "Get");
-    loading.classList.toggle("d-none");
     if(post.status =="0" || post.status === "404" ){
         showToast(post.msg,true);
     }else{
-        quill.setContents(JSON.parse(post.content),"api");
+        quill.setContents(JSON.parse(post.data.content),"api");
         Array.from(btnPosts).forEach(el=>{
             el.disabled  =false;
             el.classList.remove("text-info");
@@ -39,15 +52,8 @@ async function handleClickBtnPost(e){
         e.target.classList.add("text-info");
         e.target.classList.remove("text-dark");
 
-        window.history.pushState("",post.title,window.location.origin+"/post/"+post.id);
-        document.title = post.title;
+        window.history.pushState("",post.title,"/post/"+post.data.id);
+        document.title = post.data.title;
+        lkEdit.href = "/edit/"+post.data.id;
     }
-}
-
-function getPostIdFromURl(){
-    let paths = window.location.pathname.split("/");
-    if(paths.length < 3){
-        return null;
-    }
-    return paths[2];
 }
