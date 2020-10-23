@@ -1,6 +1,10 @@
 package com.pm.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class PostModel {
+    private Integer id;
     private String categoryName;
     private Integer categoryId;
     private String content;
@@ -10,6 +14,14 @@ public class PostModel {
 
     public String getSummary() {
         return summary;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setSummary(String summary) {
