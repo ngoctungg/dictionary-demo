@@ -6,54 +6,65 @@ for (i = 0; i < toggler.length; i++) {
     });
 }
 //---set up quill
-const quill = new Quill('#quill-content', { readOnly: true,});
+const quill = new Quill('#quill-content', {
+    readOnly: true, modules: {
+        syntax: true
+    },
+});
 let btnPosts = document.querySelectorAll("[name=btn_post]");
 let lkEdit = document.getElementById("lk_edit");
-document.addEventListener("DOMContentLoaded", function(event) {
-    lkEdit.addEventListener("click",handleClicklkEdit);
-    Array.from(btnPosts).forEach(el=>{
-        el.addEventListener("click",handleClickBtnPost);
+document.addEventListener("DOMContentLoaded", function (event) {
+    lkEdit.addEventListener("click", handleClicklkEdit);
+    Array.from(btnPosts).forEach(el => {
+        el.addEventListener("click", handleClickBtnPost);
     });
-    Array.from(document.getElementsByClassName("ql-clipboard")).forEach(el=>el.classList.toggle("d-none"));
+    Array.from(document.getElementsByClassName("ql-clipboard")).forEach(el => el.classList.toggle("d-none"));
     loadPostById();
 });
-function loadPostById(){
+
+function loadPostById() {
     let id = getPostIdFromURl();
-    if(id == null) return ;
-    let el = document.getElementById("p_"+id);
-    if(el === null){
+    if (id == null) return;
+    let el = document.getElementById("p_" + id);
+    if (el === null) {
         quill.setContents(JSON.parse("{\"ops\":[{\"insert\":\"Post is not found\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"}]}"));
-        return ;
+        return;
     }
-    if (el.id.split("_")[1] === id){
+    if (+el.id.split("_")[1] === id) {
         el.click();
         el.parentElement.previousElementSibling.click();
     }
 }
-function handleClicklkEdit(e){
-    if (getPostIdFromURl() === null){
+
+function handleClicklkEdit(e) {
+    if (getPostIdFromURl() === null) {
         e.preventDefault();
-        return ;
+        return;
     }
 }
-async function handleClickBtnPost(e){
+
+async function handleClickBtnPost(e) {
+    e.preventDefault();
     let id = e.target.id.split("_")[1];
     let url = window.location.origin;
     let post = await sendRequest(`${url}/api/posts/${id}`, "Get");
-    if(post.status =="0" || post.status === "404" ){
-        showToast(post.msg,true);
-    }else{
-        quill.setContents(JSON.parse(post.data.content),"api");
-        Array.from(btnPosts).forEach(el=>{
-            el.disabled  =false;
+    if (post.status == "0" || post.status === "404") {
+        showToast(post.msg, true);
+    } else {
+        quill.setContents(JSON.parse(post.data.content), "api");
+        Array.from(document.getElementsByClassName('ql-syntax')).forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        Array.from(btnPosts).forEach(el => {
+            el.disabled = false;
             el.classList.remove("text-info");
         });
         e.target.disabled = true;
         e.target.classList.add("text-info");
         e.target.classList.remove("text-dark");
 
-        window.history.pushState("",post.title,"/post/"+post.data.id);
+        window.history.pushState("", post.title, "/post/" + post.data.id);
         document.title = post.data.title;
-        lkEdit.href = "/edit/"+post.data.id;
+        lkEdit.href = "/edit/" + post.data.id;
     }
 }

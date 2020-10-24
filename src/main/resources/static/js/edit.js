@@ -22,7 +22,7 @@ const toolbarOptions = [
 const options = {
     // debug: 'info',
     modules: {
-        toolbar: toolbarOptions
+        toolbar: toolbarOptions,
     },
     placeholder: 'Compose an epic...',
     readOnly: false,
@@ -55,6 +55,7 @@ if (selectionCategory.options.length === 0) {
 //handle btn---------------------------------------------
 let btnDelete = document.getElementById("btn_delete");
 let btnSave = document.getElementById("btn_save");
+let btnHome = document.getElementById("btn_home");
 btnDelete.addEventListener("click", handleDeleteEvent);
 btnSave.addEventListener("click", handleSaveEvent);
 
@@ -133,6 +134,8 @@ async function loadPostById(){
     inputSummary.value = post.data.summary;
     selectionCategory.value = post.data.category.id;
     editor.setContents(JSON.parse(post.data.content));
+    btnHome.innerText = "Back";
+    btnHome.setAttribute("href",`/post/${post.data.id}`);
 }
 
 
