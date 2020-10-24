@@ -31,7 +31,7 @@ public class PostEntity {
     @JsonIgnoreProperties({"posts"})
     private CategoryEntity category;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<FileEntity> files;
 
     public List<FileEntity> getFiles() {

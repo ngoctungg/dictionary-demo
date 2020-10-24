@@ -1,11 +1,13 @@
 package com.pm.controller;
 
 
+import com.pm.exception.NotFoundPostException;
 import com.pm.model.PostModel;
 import com.pm.model.ResponseMessage;
 import com.pm.service.PostRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,17 @@ public class PostRestController {
     @PostMapping("/posts")
     public ResponseEntity createPost(@RequestBody PostModel postModel){
         ResponseMessage message = restService.createPost(postModel);
+        return ResponseEntity.ok().body(message);
+    }
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity deletePost(@PathVariable(name = "id") Integer id){
+        ResponseMessage message = restService.deletePostById(id);
+        return ResponseEntity.ok().body(message);
+    }
+
+    @PutMapping("/posts")
+    public ResponseEntity updatePost(@RequestBody PostModel postModel) throws NotFoundPostException {
+        ResponseMessage message = restService.updatePostById(postModel);
         return ResponseEntity.ok().body(message);
     }
 

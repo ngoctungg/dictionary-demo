@@ -9,10 +9,12 @@ async function sendRequest(url = "", method = "Get", data = {}) {
             },
             redirect: 'follow'
         };
-        if (method.toLowerCase() === "post"){
+        if (["post","put"].includes( method.toLowerCase()) ){
             options["body"]= JSON.stringify(data);
         }
+        loading.classList.toggle("d-none");
         const response = await fetch(url, options);
+        loading.classList.toggle("d-none");
         if (!response.ok) {
             throw Error(response.statusText);
         }
@@ -41,4 +43,13 @@ function showToast(msg = "", isError = false) {
         el._element.classList.add(isError ? "bg-danger" : "bg-success");
         el.show();
     });
+}
+
+
+function getPostIdFromURl(){
+    let paths = window.location.pathname.split("/");
+    if(paths.length < 3){
+        return null;
+    }
+    return +paths[2];
 }

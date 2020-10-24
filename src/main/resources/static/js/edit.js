@@ -58,7 +58,24 @@ let btnSave = document.getElementById("btn_save");
 btnDelete.addEventListener("click", handleDeleteEvent);
 btnSave.addEventListener("click", handleSaveEvent);
 
-function handleDeleteEvent(e) {
+document.addEventListener("DOMContentLoaded", async function(event) {
+    await loadPostById();
+    if(!getPostIdFromURl()){
+        btnDelete.remove();
+    }else{
+        btnDelete.addEventListener("click",handleDeleteEvent);
+    }
+
+});
+
+async function handleDeleteEvent(e) {
+    let sessionData = JSON.parse(window.sessionStorage.getItem("pre_data"));
+    let id = sessionData && sessionData.id ;
+    let post = await sendRequest(`${window.location.origin}/api/posts/${id}`, "Delete");
+    showToast(post.msg, post.status === "0" || post.status === "404");
+    if (post.status === "200"){
+        window.location = "/post";
+    }
 }
 
 async function handleSaveEvent(e) {
@@ -88,8 +105,34 @@ async function handleSaveEvent(e) {
         }
     }
     let url = window.location.origin;
-    let msg = await sendRequest(`${url}/api/posts`, "Post", data);
-    showToast(msg.msg, msg.status === undefined);
+    let sessionData = JSON.parse(window.sessionStorage.getItem("pre_data"));
+    let preId = sessionData && sessionData.id ;
+    let msg = "";
+    if(getPostIdFromURl() === preId){
+        data["id"] = preId;
+        msg = await sendRequest(`${url}/api/posts`, "Put", data);
+    }else{
+        msg = await sendRequest(`${url}/api/posts`, "Post", data);
+    }
+    showToast(msg.msg, msg.status === "0");
+}
+
+async function loadPostById(){
+    let id = getPostIdFromURl();
+    if(id == null) return ;
+    let url = window.location.origin;
+    let post = await sendRequest(`${url}/api/posts/${id}`, "Get");
+    if (post.status === "0" || post.status === "404"){
+        showToast(post.msg, true);
+        btnDelete.remove();
+        return;
+    }
+    window.sessionStorage.setItem("pre_data",JSON.stringify(post.data));
+    inputTitle.value = post.data.title;
+    inputTag.value = post.data.title;
+    inputSummary.value = post.data.summary;
+    selectionCategory.value = post.data.category.id;
+    editor.setContents(JSON.parse(post.data.content));
 }
 
 

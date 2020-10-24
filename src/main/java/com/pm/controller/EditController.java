@@ -13,7 +13,7 @@ public class EditController {
     @Autowired
     private EditService service;
 
-    @GetMapping("/edit")
+    @GetMapping({"/edit/*","/edit"})
     public String html(Model model) {
         model.addAttribute("categories",service.getAllCategories());
         return "edit";
