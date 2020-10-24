@@ -14,7 +14,7 @@ public class HomeService {
     private CategoryRepository categoryRepository;
 
     public List<CategoryEntity> getAllCategories(){
-        List<CategoryEntity> categories = categoryRepository.findAll();
+        List<CategoryEntity> categories = categoryRepository.findAllCategoriesAndPost();
         return categories;
     }
     
