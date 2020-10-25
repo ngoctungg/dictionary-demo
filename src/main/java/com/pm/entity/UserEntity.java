@@ -24,6 +24,13 @@ public class UserEntity implements Serializable {
     )
     private List<RoleEntity> roles;
 
+    public UserEntity() {
+    }
+
+    public UserEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
