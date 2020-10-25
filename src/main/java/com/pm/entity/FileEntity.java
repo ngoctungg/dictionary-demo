@@ -1,7 +1,6 @@
 package com.pm.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity

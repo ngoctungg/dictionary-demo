@@ -1,29 +1,31 @@
 package com.pm.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.pm.audit.Auditable;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "`post`")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","files"})
-public class PostEntity {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "files"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostEntity extends Auditable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "title", nullable = false, length = 2147483647)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "summary", nullable = false, length = 2147483647)
+    @Column(name = "summary")
     private String summary;
 
-    @Column(name = "content", nullable = false, length = 2147483647)
+    @Basic
+    @Column(name = "content")
     private String content;
 
     @ManyToOne
@@ -31,7 +33,7 @@ public class PostEntity {
     @JsonIgnoreProperties({"posts"})
     private CategoryEntity category;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<FileEntity> files;
 
     public List<FileEntity> getFiles() {

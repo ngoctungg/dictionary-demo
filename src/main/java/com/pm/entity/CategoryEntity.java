@@ -1,23 +1,16 @@
 package com.pm.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pm.audit.Auditable;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "`category`")
 @EntityListeners(AuditingEntityListener.class)
-public class CategoryEntity extends Auditable<Long> {
+public class CategoryEntity extends Auditable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
