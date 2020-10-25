@@ -109,7 +109,7 @@ async function handleSaveEvent(e) {
     let sessionData = JSON.parse(window.sessionStorage.getItem("pre_data"));
     let preId = sessionData && sessionData.id ;
     let msg = "";
-    if(getPostIdFromURl() === preId){
+    if(getPostIdFromURl() && getPostIdFromURl() === preId){
         data["id"] = preId;
         msg = await sendRequest(`${url}/api/posts`, "Put", data);
     }else{
