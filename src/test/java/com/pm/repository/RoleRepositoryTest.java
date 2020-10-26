@@ -1,7 +1,6 @@
 package com.pm.repository;
 
 import com.pm.entity.RoleEntity;
-import com.pm.entity.UserEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

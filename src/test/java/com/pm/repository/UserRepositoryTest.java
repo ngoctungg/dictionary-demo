@@ -1,9 +1,7 @@
 package com.pm.repository;
 
-import com.pm.ProjectManagerApplication;
 import com.pm.entity.RoleEntity;
 import com.pm.entity.UserEntity;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

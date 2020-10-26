@@ -1,6 +1,5 @@
 package com.pm.repository;
 
-import com.pm.entity.CategoryEntity;
 import com.pm.entity.FileEntity;
 import com.pm.entity.PostEntity;
 import org.junit.Test;

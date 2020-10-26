@@ -1,8 +1,6 @@
 package com.pm.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 public class PostModel {
     private Integer id;
     private String categoryName;

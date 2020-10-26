@@ -1,5 +1,11 @@
 package com.pm.audit;
-import org.springframework.data.annotation.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.pm.entity.UserEntity;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -8,10 +14,13 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable<T> implements Serializable {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+public abstract class Auditable{
+
     @CreatedBy
-    @Column(name = "created_by")
-    protected T createdBy;
+    @JoinColumn(name = "created_by")
+    @ManyToOne
+    protected UserEntity createdBy;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -19,20 +28,29 @@ public abstract class Auditable<T> implements Serializable {
     protected Date createdAt;
 
     @LastModifiedBy
-    @Column(name = "updated_by")
-    protected T updatedBy;
+    @JoinColumn(name = "updated_by")
+    @ManyToOne
+    protected UserEntity updatedBy;
 
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     @Column(name = "updated_at")
     protected Date updatedAt;
 
-    public T getCreatedBy() {
+    public UserEntity getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(T createdBy) {
+    public void setCreatedBy(UserEntity createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public UserEntity getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UserEntity updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public Date getCreatedAt() {
@@ -41,14 +59,6 @@ public abstract class Auditable<T> implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public T getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(T updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Date getUpdatedAt() {

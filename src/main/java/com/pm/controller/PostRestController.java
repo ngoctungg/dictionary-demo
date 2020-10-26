@@ -6,8 +6,6 @@ import com.pm.model.PostModel;
 import com.pm.model.ResponseMessage;
 import com.pm.service.PostRestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +42,12 @@ public class PostRestController {
         }
         int postId = Integer.parseInt(id);
         return ResponseEntity.ok().header("Cache-Control","max-age=120").body(restService.getPostById(postId));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity searchPost(@RequestParam(name = "q") String query){
+
+        return ResponseEntity.ok().header("Cache-Control","max-age=120").body(restService.searchPost(query));
     }
 
 }
