@@ -21,11 +21,11 @@ public class PostEntity extends Auditable {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "summary")
+    @Column(name = "summary",length = 2147483647)
     private String summary;
 
     @Basic
-    @Column(name = "content")
+    @Column(name = "content",length = 2147483647)
     private String content;
 
     @ManyToOne

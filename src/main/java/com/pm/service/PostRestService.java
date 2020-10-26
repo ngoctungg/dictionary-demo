@@ -86,8 +86,8 @@ public class PostRestService {
     }
 
     public List<PostEntity> searchPost(String q){
-        double accuracy = 0.1;
-        return postRepository.searchPost(q,accuracy);
+        double accuracy = 0;
+        return postRepository.searchPost(q.toLowerCase(),accuracy);
     }
 
 }

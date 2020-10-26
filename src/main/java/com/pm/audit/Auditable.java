@@ -1,5 +1,6 @@
 package com.pm.audit;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pm.entity.UserEntity;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,11 +14,12 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable implements Serializable {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+public abstract class Auditable{
 
     @CreatedBy
     @JoinColumn(name = "created_by")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     protected UserEntity createdBy;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,7 +29,7 @@ public abstract class Auditable implements Serializable {
 
     @LastModifiedBy
     @JoinColumn(name = "updated_by")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     protected UserEntity updatedBy;
 
     @Temporal(TemporalType.TIMESTAMP)

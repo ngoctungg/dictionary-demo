@@ -1,5 +1,7 @@
 package com.pm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`user`")
+@JsonIgnoreProperties({"password","roles","id"})
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +57,6 @@ public class UserEntity implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
     public List<RoleEntity> getRoles() {
         return roles;
     }
