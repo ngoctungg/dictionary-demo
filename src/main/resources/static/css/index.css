@@ -41,6 +41,9 @@
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+  .btn-cat-wrapper{
+    display: none;
+  }
 }
 
 /* Hide the nested list */
@@ -76,5 +79,16 @@
 .click-through{
   pointer-events: none;
 }
-#sidebar-wrapper{
+#quill-content img{
+  width: 100%;
+}
+
+#btn_cat{
+  width: 50px;
+  height: 50px;
+}
+.btn-cat-wrapper{
+  position: fixed;
+  bottom: 60px;
+  left: 15px;
 }
