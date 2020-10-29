@@ -2,7 +2,6 @@
 
 #wrapper {
   overflow-x: hidden;
-  background: linear-gradient(to bottom right, #ffffff -21%, #ff99cc 69%);
 }
 
 #sidebar-wrapper {
@@ -12,7 +11,6 @@
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
-  opacity: 0.7;
 }
 
 #sidebar-wrapper .sidebar-heading {
