@@ -41,7 +41,7 @@ public class PostRestController {
             return ResponseEntity.ok().body(new ResponseMessage("404","Post is not found"));
         }
         int postId = Integer.parseInt(id);
-        return ResponseEntity.ok().header("Cache-Control","max-age=120").body(restService.getPostById(postId));
+        return ResponseEntity.ok().body(restService.getPostById(postId));
     }
 
     @GetMapping("/search")
