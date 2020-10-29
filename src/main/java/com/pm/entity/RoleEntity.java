@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`role`")
-public class RoleEntity implements Serializable {
+public class RoleEntity {
 
 
     @Id
@@ -22,7 +22,14 @@ public class RoleEntity implements Serializable {
         this.id = id;
     }
 
-    @ManyToMany(mappedBy = "roles")
+    public RoleEntity(Integer id) {
+        this.id = id;
+    }
+
+    public RoleEntity() {
+    }
+
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
     private List<UserEntity> users;
 
     public List<UserEntity> getUsers() {
@@ -43,7 +50,6 @@ public class RoleEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-        //ok
     }
 
     @Override
