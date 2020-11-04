@@ -23,7 +23,7 @@
 	</div>
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
-		<div th:replace="~{/fragments/nav.html :: nav}"></div>
+		<div th:replace="fragments/nav.html :: nav"></div>
 		<div class="container-fluid">
 			<div class="list-group my-5 m-auto">
 				<a th:each="post : ${posts}" aria-current="true" class="list-group-item list-group-item-action" th:href="${'/post/'+post.id}">
