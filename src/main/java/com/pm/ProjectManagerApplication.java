@@ -31,17 +31,21 @@ public class ProjectManagerApplication implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
     @Override
     public void run(String... args) throws Exception {
-        RoleEntity admin = new RoleEntity();
-        admin.setName("admin");
-        RoleEntity user = new RoleEntity();
-        user.setName("user");
-        roleRepository.save(admin);
-        roleRepository.save(user);
+        if(!userRepository.existsById(1)) {
+            RoleEntity admin = new RoleEntity();
+            admin.setName("admin");
+            RoleEntity user = new RoleEntity();
+            user.setName("user");
+            roleRepository.save(admin);
+            roleRepository.save(user);
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setAccount("admin");
-        userEntity.setPassword(passwordEncoder.encode("admin"));
-        userEntity.setRoles(Collections.singletonList(admin));
-        userRepository.save(userEntity);
+
+            UserEntity userEntity = new UserEntity();
+            userEntity.setAccount("admin");
+            userEntity.setPassword(passwordEncoder.encode("admin"));
+            userEntity.setRoles(Collections.singletonList(admin));
+            userRepository.save(userEntity);
+        }
+
     }
 }
