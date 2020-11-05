@@ -3,8 +3,7 @@
 <head>
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<title> Login Page </title>
-	<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
-	      integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body class="bg-light">
 <div class="container vh-100  ">
@@ -33,10 +32,7 @@
 	</div>
 
 </div>
-
-<script crossorigin="anonymous"
-        integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script>
 	function resize(e){
 		if(window.innerWidth < 768){
