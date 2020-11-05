@@ -54,18 +54,20 @@ function getPostIdFromURl(){
     return +paths[2];
 }
 let sidebarWrapper = document.getElementById("sidebar-wrapper");
-document.getElementById("btn_cat").addEventListener("click",(e)=>{
-    if(sidebarWrapper.style.marginLeft === "" || sidebarWrapper.style.marginLeft === "-15rem"){
-        sidebarWrapper.style.marginLeft = 0;
-    }else{
-        sidebarWrapper.style.marginLeft = "-15rem";
-    }
-});
+if(sidebarWrapper){
+    document.getElementById("btn_cat").addEventListener("click",(e)=>{
+        if(sidebarWrapper.style.marginLeft === "" || sidebarWrapper.style.marginLeft === "-15rem"){
+            sidebarWrapper.style.marginLeft = 0;
+        }else{
+            sidebarWrapper.style.marginLeft = "-15rem";
+        }
+    });
 
-window.addEventListener('resize', (e)=>{
-    if(window.innerWidth >= 768){
-        sidebarWrapper.style.marginLeft = 0;
-    }else {
-        sidebarWrapper.style.marginLeft = "-15rem";
-    }
-});
+    window.addEventListener('resize', (e)=>{
+        if(window.innerWidth >= 768){
+            sidebarWrapper.style.marginLeft = 0;
+        }else {
+            sidebarWrapper.style.marginLeft = "-15rem";
+        }
+    });
+}
