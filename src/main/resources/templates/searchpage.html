@@ -23,7 +23,8 @@
 				<a th:each="post : ${posts}" aria-current="true" class="list-group-item list-group-item-action" th:href="${'/post/'+post.id}">
 					<div class="d-flex w-100 justify-content-between">
 						<h5 class="mb-1" th:text="${post.title}"></h5>
-						<small th:text="${#dates.format(post.createdAt,'dd-MM-yyyy HH:mm')}"></small>
+						<small class="ml-auto pr-2" th:text="${post.createdBy.account}"></small>
+						<small th:text="${#dates.format(post.createdAt,'dd-MM-yyyy')}"></small>
 					</div>
 					<p class="mb-1" th:text="${post.summary}"></p>
 				</a>
