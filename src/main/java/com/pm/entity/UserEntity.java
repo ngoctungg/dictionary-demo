@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`user`")
-@JsonIgnoreProperties({"password","roles","id"})
+@JsonIgnoreProperties({"password"})
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,9 @@ public class UserEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
+
+    @Column(name = "active")
+    private boolean active;
 
     public UserEntity() {
     }
@@ -63,6 +66,14 @@ public class UserEntity implements Serializable {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

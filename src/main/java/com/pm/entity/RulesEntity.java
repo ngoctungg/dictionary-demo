@@ -11,29 +11,29 @@ import javax.persistence.Table;
 @Table(name = "`rule`")
 public class RulesEntity {
 	 @Id
-	    @Column(name = "RuleNumber")
+	    @Column(name = "rule_number")
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Integer ruleNumber;
 
-	    @Column(name = "Room")
+	    @Column(name = "room")
 	    private String room;
 	    
-	    @Column(name = "Type")
+	    @Column(name = "type")
 	    private String type;
 	    
-	    @Column(name = "RuleName")
+	    @Column(name = "rule_name")
 	    private String ruleName;
 	    
-	    @Column(name = "DescriptionDev")
+	    @Column(name = "description_dev")
 	    private String descriptionDev;
 	    
-	    @Column(name = "PickDev")
+	    @Column(name = "pick_dev")
 	    private String pickDev;
 	    
-	    @Column(name = "PickTest")
+	    @Column(name = "pick_test")
 	    private String pickTest;
 	    
-	    @Column(name = "DescriptionTest")
+	    @Column(name = "description_test")
 	    private String descriptionTest;
 
 		public Integer getRuleNumber() {
