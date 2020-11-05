@@ -31,11 +31,12 @@ public class CustomUserDetails implements UserDetails {
         return user.getRoles()
                 .stream()
                 .map(role -> {
-                    System.out.print(role.getName());
                     return new SimpleGrantedAuthority(role.getName());
                 })
                 .collect(Collectors.toSet());
     }
+
+
 
     @Override
     public String getPassword() {
