@@ -1,0 +1,1 @@
+create fulltext index post_index on post(content,title,summary) with Parser ngram;

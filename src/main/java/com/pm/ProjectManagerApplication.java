@@ -1,50 +1,38 @@
 package com.pm;
 
 
-import com.pm.entity.RoleEntity;
-import com.pm.entity.UserEntity;
-import com.pm.repository.RoleRepository;
+import com.pm.model.UserModel;
 import com.pm.repository.UserRepository;
+import com.pm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.orm.jpa.EntityManagerHolder;
 
-import java.util.Arrays;
-import java.util.Collections;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 @SpringBootApplication
 public class ProjectManagerApplication implements CommandLineRunner {
+
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(ProjectManagerApplication.class, args);
     }
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
     @Override
     public void run(String... args) throws Exception {
-        if(!userRepository.existsById(1)) {
-            RoleEntity admin = new RoleEntity();
-            admin.setName("admin");
-            RoleEntity user = new RoleEntity();
-            user.setName("user");
-            roleRepository.save(admin);
-            roleRepository.save(user);
-
-
-            UserEntity userEntity = new UserEntity();
-            userEntity.setAccount("admin");
-            userEntity.setPassword(passwordEncoder.encode("admin"));
-            userEntity.setRoles(Collections.singletonList(admin));
-            userRepository.save(userEntity);
+        if (!userRepository.existsById(1)) {
+            UserModel userModel = new UserModel();
+            userModel.setAccount("admin");
+            userModel.setPassword("admin");
+            userModel.setRole(1);
+            userService.registerNewUserAccount(userModel);
         }
 
     }
