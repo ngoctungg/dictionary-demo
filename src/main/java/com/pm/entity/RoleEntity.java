@@ -1,5 +1,6 @@
 package com.pm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "`role`")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties("users")
 public class RoleEntity {
 
 
@@ -32,7 +34,7 @@ public class RoleEntity {
     public RoleEntity() {
     }
 
-    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<UserEntity> users;
 
     public List<UserEntity> getUsers() {
