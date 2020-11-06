@@ -1,1 +1,1 @@
-insert into `role`(name) values ('Admin'), ('Editor'), ('User');
+insert into `role`(name) values ('Admin'), ('Editor'), ('Reader');
