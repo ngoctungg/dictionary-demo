@@ -20,7 +20,8 @@ async function sendRequest(url = "", method = "Get", data = {}) {
         }
         return response.json();
     } catch (e) {
-        return {status:"0","msg": "Your action was unsuccessful"};
+        loading.classList.toggle("d-none");
+        return {status:"0","msg": e.msg?e.msg:"Your action was unsuccessful"};
     }
 }
 let loading = document.getElementById("loading");

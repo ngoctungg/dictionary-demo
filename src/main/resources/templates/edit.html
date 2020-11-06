@@ -8,13 +8,14 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/quill.snow.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/quill-better-table.css}">
 </head>
 <body>
 <div class="d-flex" id="wrapper">
 	<!-- Sidebar -->
-	<div class="bg-light border-right min-vh-100 position-relative" id="sidebar-wrapper">
+	<div class="bg-light border-right min-vh-100 position-sticky align-self-start" id="sidebar-wrapper" style="top:0;">
 		<div class="list-group list-group-flush pt-5">
-			<div class="list-group-item list-group-item-action bg-light ">
+			<div class="list-group-item list-group-item-action bg-light " >
 				<h5 class="mb-1">Category</h5>
 				<div class="input-group mb-2">
 					<select class="form-select" id="selection_category">
@@ -57,7 +58,7 @@
 		<div th:replace="fragments/nav.html :: nav"></div>
 		<div class="container-fluid mt-3 mb-5">
 			<h5 class="mb-1">Content</h5>
-			<div class="ql-container ql-snow" id="quill-content" style="height: 440px">
+			<div class="ql-container ql-snow" id="quill-content" style="min-height: 440px">
 			</div>
 		</div>
 	</div>
@@ -65,7 +66,7 @@
 
 </div>
 <div aria-atomic="true" aria-live="assertive" class="toast d-flex align-items-center text-white click-through"
-     role="alert" style="position: absolute; top: 0; right: 0;">
+     role="alert" style="position: fixed; top: 0; right: 0;">
 	<div class="toast-body"></div>
 	<button aria-label="Close" class="btn-close ml-auto mr-2" data-dismiss="toast" type="button"></button>
 </div>
@@ -79,6 +80,7 @@
 	<button class="btn btn-outline-primary rounded-circle position-absolute" id="btn_cat">+</button>
 </div>
 <script th:src="@{/js/quill.min.js}"></script>
+<script  th:src="@{/js/quill-better-table.js}"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/edit.js}"></script>
