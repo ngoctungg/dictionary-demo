@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity,Integer> {
-    UserEntity findByAccount(String account);
+    UserEntity findByAccountAndActiveIsTrue(String account);
 
-    @Query("select u from UserEntity u order by u.active asc ")
+    @Query("select u from UserEntity u order by u.active DESC ")
     List<UserEntity> getAllAndSortByActive();
 }

@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByAccount(s);
+        UserEntity user = userRepository.findByAccountAndActiveIsTrue(s);
         if (user == null) {
             throw new UsernameNotFoundException(s);
         }
@@ -72,14 +72,19 @@ public class UserService implements UserDetailsService {
          Optional<UserEntity> opt =  userRepository.findById(userModel.getId());
         if (opt.isPresent()) {
             UserEntity userEntity = opt.get();
-            userEntity.setActive(userModel.getActive());
             if(userModel.getPassword() != null){
                 userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
             }
             if(userModel.getActive() != null){
                 userEntity.setActive(userModel.getActive());
             }
-            userRepository.save(userEntity);
+            if(userModel.getRole() != null){
+                RoleEntity role = new RoleEntity();
+                role.setId(userModel.getRole());
+                userEntity.getRoles().clear();
+                userEntity.getRoles().add(role);
+            }
+            userRepository.saveAndFlush(userEntity);
             return new ResponseMessage("200", "Update Account successfully");
         }
         throw new NotFoundPostException();

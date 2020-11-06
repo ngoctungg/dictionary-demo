@@ -22,11 +22,10 @@ public class UserRestController {
 
     @PutMapping("/user")
     public ResponseEntity updateUser(@RequestBody UserModel userModel) throws Exception{
-        validateUserModel(userModel);
         if(userModel.getId() == null){
             throw new Exception();
         }
-        ResponseMessage message = userService.registerNewUserAccount(userModel);
+        ResponseMessage message = userService.updateUser(userModel);
         return ResponseEntity.ok().body(message);
     }
 

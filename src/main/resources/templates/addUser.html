@@ -19,7 +19,7 @@
 	<div id="page-content-wrapper">
 		<div th:replace="fragments/nav.html :: nav"></div>
 		<div class="container w-50">
-			<button type="button" class="btn bg-primary text-white mt-5 mb-2" data-toggle="modal" data-target="#myModal">Add new Account</button>
+			<button type="button" class="btn bg-primary text-white mt-5 mb-2" id="btn_new">Add new Account</button>
 			<div class="list-group m-auto">
 				<table class="table">
 					<thead>
@@ -40,12 +40,14 @@
 							<span class="bg-white" th:text="${user.active?'Active':'Inactive'}"></span>
 						</td>
 						<td>
-
-							<button class="btn bg-info text-white"
-							        th:if="${!user.roles.get(0).name.equalsIgnoreCase('Admin')}">Edit
+							<button class="btn bg-info text-white" th:id="'btn_edit_' + ${user.id}"
+							        th:if="${!user.roles.get(0).name.equalsIgnoreCase('Admin') && user.active}">Edit
 							</button>
-							<button class="btn bg-danger text-white"
-							        th:if="${!user.roles.get(0).name.equalsIgnoreCase('Admin')}">Deactivate
+							<button class="btn bg-danger text-white" th:id="'btn_deactivate_' + ${user.id}"
+							        th:if="${!user.roles.get(0).name.equalsIgnoreCase('Admin') && user.active}">Deactivate
+							</button>
+							<button class="btn bg-success text-white" th:id="'btn_activate_' + ${user.id}"
+							        th:if="${!user.roles.get(0).name.equalsIgnoreCase('Admin') && !user.active}">Activate
 							</button>
 						</td>
 					</tr>
@@ -58,7 +60,7 @@
 	<!-- /#page-content-wrapper -->
 </div>
 <div aria-atomic="true" aria-live="assertive" class="toast d-flex align-items-center text-white click-through"
-     role="alert" style="position: absolute; top: 0; right: 0;">
+     role="alert" style="position: fixed; top: 0; right: 0;z-index: 100000">
 	<div class="toast-body"></div>
 	<button aria-label="Close" class="btn-close ml-auto mr-2" data-dismiss="toast" type="button"></button>
 </div>
@@ -83,11 +85,11 @@
 				<div class="row">
 					<label class="col-sm-2 col-form-label" for="account">Account</label>
 					<div class="col-sm-10 mb-1">
-						<input autocomplete="off" class="form-control" id="account" type="text">
+						<input autocomplete="off" class="form-control" id="account" type="text" required>
 					</div>
 					<label autocomplete="off" class="col-sm-2 col-form-label" for="password">Password</label>
 					<div class="col-sm-10 mb-1">
-						<input class="form-control" id="password" type="password">
+						<input class="form-control" id="password" type="password" required>
 					</div>
 					<label class="col-sm-2 col-form-label" for="role">Role</label>
 					<div class="col-sm-10 mb-1">
@@ -101,7 +103,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-primary" id="btn_save">Save</button>
 			</div>
 		</div>
 	</div>
@@ -111,11 +113,5 @@
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/addUser.js}"></script>
-<script>
-	var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-		keyboard: false,
-		show:true
-	})
-</script>
 </body>
 </html>

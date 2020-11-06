@@ -1,5 +1,4 @@
 package com.pm.model;
-
 public class UserModel {
     private Integer id;
     private String account;
