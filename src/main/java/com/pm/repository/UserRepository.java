@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     UserEntity findByAccountAndActiveIsTrue(String account);
-
+    Boolean existsByAccountEquals(String account);
     @Query("select u from UserEntity u order by u.active DESC ")
     List<UserEntity> getAllAndSortByActive();
 }
