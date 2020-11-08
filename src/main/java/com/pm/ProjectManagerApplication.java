@@ -27,13 +27,12 @@ public class ProjectManagerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!userRepository.existsById(1)) {
+        if (!userRepository.existsByAccountEquals("admin")) {
             UserModel userModel = new UserModel();
             userModel.setAccount("admin");
             userModel.setPassword("admin");
             userModel.setRole(1);
             userService.registerNewUserAccount(userModel);
         }
-
     }
 }
