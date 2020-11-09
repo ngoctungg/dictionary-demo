@@ -1,10 +1,13 @@
 package com.pm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "`file`")
+@JsonIgnoreProperties({"post", "path"})
 public class FileEntity{
     @Id
     @Column(name = "id", nullable = false)
