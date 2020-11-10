@@ -1,22 +1,20 @@
-async function sendRequest(url = "", method = "Get", data = {}) {
+async function sendRequest(url = "", method = "Get", data = null) {
     try {
         let options = {
             method: method,
             mode: "cors",
             credentials: "same-origin",
-            headers: {
+            redirect: 'follow',
+            headers:{
                 'Content-Type': 'application/json'
-            },
-            redirect: 'follow'
+            }
         };
-        if (["post", "put","delete"].includes(method.toLowerCase())) {
+        if (["post", "put","delete"].includes(method.toLowerCase()) && data) {
             if (data instanceof FormData) {
+                delete options.headers["Content-Type"];
                 options["body"] = data;
             }else {
                 options["body"] = JSON.stringify(data);
-            }
-            if (data instanceof FormData) {
-                delete options.headers["Content-Type"]
             }
         }
         loading.classList.toggle("d-none");
@@ -42,16 +40,16 @@ toastList.forEach(el => {
         el._element.classList.remove("bg-danger");
         el._element.classList.remove("bg-success");
         el._element.classList.add("click-through");
-        location.reload();
+
     })
 })
 
 function showToast(msg = "", isError = false) {
     toastList.forEach(el => {
+        el._element.style.zIndex = 2;
         el._element.getElementsByClassName("toast-body")[0].innerHTML = msg;
         el._element.classList.remove("click-through");
         el._element.classList.add(isError ? "bg-danger" : "bg-success");
-        el._element.styles.zIndex = 2;
         el.show();
     });
 }

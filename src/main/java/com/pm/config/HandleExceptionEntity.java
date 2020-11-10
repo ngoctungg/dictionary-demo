@@ -2,6 +2,7 @@ package com.pm.config;
 
 import com.pm.exception.NotFoundPostException;
 import com.pm.model.ResponseMessage;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,5 +22,9 @@ public class HandleExceptionEntity extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotFoundPostException.class)
     public final ResponseEntity hanldePostNotFound(Exception ex, WebRequest request){
         return ResponseEntity.notFound().build();
+    }
+    @ExceptionHandler(SizeLimitExceededException.class)
+    public final ResponseEntity hanldeSizeLimitExceededException(Exception ex, WebRequest request){
+        return ResponseEntity.badRequest().body(new ResponseMessage<>("500",ex.getMessage()));
     }
 }

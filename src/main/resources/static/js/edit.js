@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", async function (event) {
     }
 
     function handleChosenFile(e){
-        if(customFile.files.length){
-            uploadFiles.push(...customFile.files);
+        if(e.currentTarget.files.length){
+            uploadFiles.push(...(Array.from(e.currentTarget.files).filter(file=>file.size < 20*1024*1024)));
         }
         renderFileLabel(remoteFiles,true);
         renderFileLabel(uploadFiles);
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
         if (isClean) fileLabelContainer.innerHTML= "";
         let id = 0;
         for(const file of files){
-            const htmlEl = `<span class="form-file-text borb-0">
+            const htmlEl = `<span class="form-file-text" style="border-bottom: 0px">
                         ${file.name} - ${getFileSize(file.size)}   
                         <button aria-label="Close" data-id="${file.id?file.id:''}" 
                         data-name="btn_file_del_${id++}"
@@ -219,9 +219,16 @@ document.addEventListener("DOMContentLoaded", async function (event) {
                 "delete",
                 ids);
             res.status = deleteFileRes.status;
-            res.msg += deleteFileRes.msg +"<br>";
+            res.msg +="<br>"+ deleteFileRes.msg +"<br>";
         }
         showToast(res.msg, res.status === "0");
+        if(res.status !== "0"){
+            if (getPostIdFromURl()){
+                location.reload();
+            }else{
+                window.location.href = location.origin+"/edit/"+data["id"];
+            }
+        }
     }
 
     async function loadPostById() {

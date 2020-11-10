@@ -41,6 +41,18 @@
 	<div id="page-content-wrapper">
 		<div th:replace="fragments/nav.html :: nav"></div>
 		<div class="container-fluid" id="article_container">
+			<div class="d-block" style="padding-left: 15px;padding-right: 15px;">
+				<p id="title" class="h2"></p>
+			</div>
+			<div class="d-flex justify-content-between bg-white" style="padding-left: 15px;padding-right: 15px;">
+				<p id="user" class="small font-italic"></p>
+				<p id="time" class="small font-italic"></p>
+			</div>
+			<div class="mb-2" style="padding-left: 15px;padding-right: 15px;">
+				<div class="form-file-label" id="file_label"
+				       style="position: static;flex-direction: column;border-radius: inherit">
+				</div>
+			</div>
 			<div class="ql-container" id="quill-content" style="cursor: default !important;"></div>
 		</div>
 	</div>
