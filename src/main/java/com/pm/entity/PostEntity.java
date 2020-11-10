@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "`post`")
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "files"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostEntity extends Auditable {
     @Id

@@ -39,7 +39,7 @@ public class PostRestService {
         postEntity.setSummary(post.getSummary());
         postRepository.save(postEntity);
 
-        return new ResponseMessage("200", "Create new post successfully");
+        return new ResponseMessage("200", "Create new post successfully",postEntity);
     }
 
     public ResponseMessage getPostById(Integer id) {

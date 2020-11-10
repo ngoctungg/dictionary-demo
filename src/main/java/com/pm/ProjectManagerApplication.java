@@ -3,6 +3,7 @@ package com.pm;
 
 import com.pm.model.UserModel;
 import com.pm.repository.UserRepository;
+import com.pm.service.FileService;
 import com.pm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +21,8 @@ public class ProjectManagerApplication implements CommandLineRunner {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    FileService fileService;
 
     public static void main(String[] args) {
         SpringApplication.run(ProjectManagerApplication.class, args);
@@ -34,5 +37,6 @@ public class ProjectManagerApplication implements CommandLineRunner {
             userModel.setRole(1);
             userService.registerNewUserAccount(userModel);
         }
+        fileService.initFolder();
     }
 }
