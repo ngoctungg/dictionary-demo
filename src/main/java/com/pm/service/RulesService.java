@@ -15,5 +15,15 @@ public class RulesService {
 	public List<RulesEntity> getAllRules(){
 		return rulesService.findAll();
 	}
-	
+	public Boolean addRules(RulesEntity rules) {
+		try {
+			rulesService.save(rules);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	public RulesEntity getRulesByID(Integer id){
+		return rulesService.findById(id).get();
+	}
 }

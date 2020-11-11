@@ -1,18 +1,15 @@
 package com.pm;
 
 
-import com.pm.model.UserModel;
-import com.pm.repository.UserRepository;
-import com.pm.service.FileService;
-import com.pm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.orm.jpa.EntityManagerHolder;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import com.pm.model.UserModel;
+import com.pm.repository.UserRepository;
+import com.pm.service.FileService;
+import com.pm.service.UserService;
 
 @SpringBootApplication
 public class ProjectManagerApplication implements CommandLineRunner {

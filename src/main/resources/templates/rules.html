@@ -35,6 +35,7 @@
 						<table cellpadding="0" cellspacing="0" border="0">
 							<thead>
 								<tr>
+									<th>Rule ID</th>
 									<th>Room</th>
 									<th>Types</th>
 									<th>Rule Name</th>
@@ -42,6 +43,7 @@
 									<th>Pick dev</th>
 									<th>Pick test</th>
 									<th>Description Test</th>
+									<th>Edit</th>
 								</tr>
 							</thead>
 						</table>
@@ -50,6 +52,7 @@
 						<table cellpadding="0" cellspacing="0" border="0">
 							<tbody th:each="info : ${listRules}">
 								<tr>
+									<td th:text="${info.ruleNumber}"></td>
 									<td th:text="*{info.room}"></td>
 									<td th:text="*{info.type}"></td>
 									<td th:text="*{info.ruleName}"></td>
@@ -57,6 +60,7 @@
 									<td th:text="*{info.pickDev}"></td>
 									<td th:text="*{info.pickTest}"></td>
 									<td th:text="*{info.descriptionTest}"></td>
+									<td ><a th:href="@{'/addRules?id='+*{info.ruleNumber}}" class="btn bg-white" >Edit</a></td>
 								</tr>
 							</tbody>
 						</table>
